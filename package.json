@@ -4,7 +4,8 @@
   "description": "my own todo list",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "dev": "set NODE_ENV=development && node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,10 @@
     "url": "https://github.com/Ingridaceg/ToDoList/issues"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "lodash": "^4.17.20",
+    "mongoose": "^5.10.3",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
