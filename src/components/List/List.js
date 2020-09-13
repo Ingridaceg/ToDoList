@@ -10,15 +10,18 @@ const List = ({ todolist }) => {
           <li>You are Free!!</li>
         )}
         
-        {todolist.map((todoItem, key) => (
-          <li key={`todoItem_${key}`}>{todoItem}</li>
+        {todolist.map((todoItem) => (
+          <li key={`todoItem_${todoItem.id}`}>{todoItem.task}</li>
         ))}
       </ul>
     );
 };
 
 List.propTypes = {
-  todolist: Proptypes.arrayOf(Proptypes.string),
+  todolist: Proptypes.arrayOf(Proptypes.shape({
+    id: Proptypes.string,
+    task: Proptypes.string,
+  })),
 };
 
 List.defaultProps = {
