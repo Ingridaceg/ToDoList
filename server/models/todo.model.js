@@ -5,8 +5,13 @@ const ToDoSchema = new mongoose.Schema(
     id:{
       type: String,
       unique: true,
+      required: true,
     },
-    task: String,
+    task:{
+      type: String,
+      required: true,
+    },
+    completed: Boolean
   },
   {collection: 'tasks'}
 );

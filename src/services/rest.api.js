@@ -16,7 +16,6 @@ const httpRequest = async (endPoint, method, body = null, headers = {}) => {
      headers,
      timeout: 10000
    });
-   
    const code = get(response, 'status');
    const data = get(response, 'data');
    
@@ -32,3 +31,7 @@ const httpRequest = async (endPoint, method, body = null, headers = {}) => {
 };
 
 export const httpGet = async (endPoint) => httpRequest(endPoint, httpMethods.get);
+
+export const httpPut = async (endPoint, body) => httpRequest(endPoint, httpMethods.put, body);
+
+export const httpDelete = async (endPoint, body) => httpRequest(endPoint, httpMethods.delete, body);
