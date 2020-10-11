@@ -1,15 +1,14 @@
 import React from 'react';
 import Proptypes from 'prop-types';
-
 const List = ({ todolist, onUpdateItem, onDeleteItem }) => {
   
   return (
     <ul>
-      
+    
       {todolist.length === 0 && (
         <li>You are Free!!</li>
       )}
-      
+    
       {todolist.map((todoItem) => (
         <li key={`todoItem_${todoItem.id}`}>{todoItem.task}
           <input

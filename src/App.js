@@ -3,14 +3,22 @@ import get from 'lodash/get';
 import findIndex from 'lodash/findIndex';
 import remove from 'lodash/remove';
 import uid from 'uid';
+import Modal from 'react-bootstrap/Modal';
+import Button from "react-bootstrap/cjs/Button";
 
 import { List, AddList } from "./components";
 import {httpDelete, httpGet, httpPut} from "./services/rest.api";
 import { endPoints } from "./services/constants";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const App = () => {
   
   const [listItems, setListItems] = useState([]);
+  const [modalState, setModalState] = useState({
+    state: false,
+    item: null
+  });
   
   const setToDo = (newTask) => {
     httpPut(endPoints.createToDo(), newTask)
@@ -36,6 +44,13 @@ const App = () => {
     }
   };
   
+  const closeDeleteModal = () => {
+    setModalState({
+      state: false,
+      item: null,
+    });
+  }
+  
   const updateListItems = (listItem) => {
     listItem.completed = !listItem.completed;
     const indexToDo = findIndex(listItems, {id: listItem.id});
@@ -48,7 +63,7 @@ const App = () => {
     updateListItems(listItem);
     httpPut(endPoints.updateToDo(), listItem)
       .then(response=> {
-        if (response.success){
+        if (get(response, "success", null)){
           console.log('task updated');
         } else {
           setListItems(listItems);
@@ -57,29 +72,36 @@ const App = () => {
       });
   };
   
-  const deleteListItems = (listItem) => {
+ const deleteListItems = (listItem) => {
     const newListItems = [...listItems];
     remove(newListItems, {id: listItem.id});
     setListItems(newListItems);
   };
   
   const deleteListHandler = (listItem) => {
-    deleteListItems(listItem);
-    httpDelete(endPoints.deleteToDo(), listItem)
-      .then(response=> {
-        if (response.success){
-          console.log('task deleted');
-        } else {
-          setListItems(listItems);
-          console.log('error deleting task');
-        }
-      });
+    setModalState({
+      state: true,
+      item: listItem,
+    });
+  };
+  
+  const deleteItem = (listItem) => {
+     deleteListItems(listItem);
+      httpDelete(endPoints.deleteToDo(), listItem)
+        .then(response=> {
+          if (get(response, "success", null)){
+            closeDeleteModal();
+          } else {
+            setListItems(listItems);
+            console.log('error deleting task');
+          }
+        });
   };
   
   const loadTodos = () => {
     httpGet(endPoints.getToDos())
       .then(response=> {
-        if (response.success) {
+        if (get(response, "success", null)) {
           const myToDos = get(response, 'todos', []);
           setListItems(myToDos);
         }
@@ -94,6 +116,20 @@ const App = () => {
   
   return (
     <div>
+      <Modal show={modalState.state} onHide={closeDeleteModal}>
+        <Modal.Body>
+          Do you want to delete { get(modalState, 'item.task', '')}
+        </Modal.Body>
+        
+        <Modal.Footer>
+          <Button variant="primary" onClick={closeDeleteModal} >
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={() => deleteItem(modalState.item)}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <h1>To Do List </h1>
       <div>
         <List todolist={listItems} onUpdateItem={updateListHandler} onDeleteItem={deleteListHandler}/>
