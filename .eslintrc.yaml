@@ -1,0 +1,104 @@
+extends:
+  - airbnb
+  - plugin:react/recommended
+  - prettier
+  - prettier/react
+  - prettier/standard
+parser: babel-eslint
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+plugins:
+  - react
+settings:
+  import/resolver: babel-plugin-root-import
+env:
+  browser: true
+  jest: true
+  node: true
+rules:
+  camelcase: 2
+  eqeqeq: 2
+  import/default: 2
+  import/extensions:
+    [
+        'error',
+        'ignorePackages',
+      {
+        'js': 'never'
+      },
+    ]
+  import/first: 1
+  import/named: 2
+  import/namespace: 2
+  import/no-cycle: 2
+  import/no-extraneous-dependencies: 0
+  import/no-named-as-default-member: 1
+  import/no-named-as-default: 0
+  import/prefer-default-export: 0
+  jsx-a11y/alt-text: 0
+  jsx-a11y/anchor-is-valid: 0
+  jsx-a11y/click-events-have-key-events: 0
+  jsx-a11y/img-has-alt: 0
+  jsx-a11y/interactive-supports-focus: 0
+  jsx-a11y/label-has-for: 0
+  jsx-a11y/mouse-events-have-key-events: 0
+  jsx-a11y/no-noninteractive-element-interactions: 0
+  jsx-a11y/no-noninteractive-element-to-interactive-role: 0
+  jsx-a11y/no-static-element-interactions: 0
+  jsx-a11y/media-has-caption: 0
+  max-len:
+    [
+        'error',
+        80,
+      {
+        'ignoreComments': true,
+        'ignoreUrls': true,
+        'ignoreStrings': true,
+        'ignoreTemplateLiterals': true,
+        'ignoreRegExpLiterals': true,
+      },
+    ]
+  no-console: 2
+  no-else-return: 0
+  no-mixed-operators: 0
+  no-multi-spaces: 0
+  no-multiple-empty-lines: 0
+  no-nested-ternary: 0
+  no-param-reassign:
+    - 2
+    - props: false
+  no-plusplus: 0
+  no-underscore-dangle: 0
+  object-curly-newline: 0
+  operator-linebreak: 0
+  radix:
+    - 2
+    - as-needed
+  react/no-danger: 0
+  react/jsx-closing-tag-location: 0
+  react/jsx-curly-brance-presence: 0
+  react/jsx-filename-extension: 0
+  react/jsx-sort-props:
+    - 2
+    - callbacksLast: true
+      shorthandFirst: false
+      shorthandLast: false
+      ignoreCase: false
+      noSortAlphabetically: false
+      reservedFirst: true
+  react/react-in-jsx-scope: 0
+  react/jsx-props-no-spreading: 0
+  react/sort-comp:
+    - 2
+    - order:
+        - type-annotations
+        - static-methods
+        - lifecycle
+        - everything-else
+        - render
+  react/sort-prop-types:
+    - 2
+    - callbacksLast: false
+      ignoreCase: true
+      requiredFirst: false
